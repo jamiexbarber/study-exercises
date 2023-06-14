@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <title>Tables And Forms!</title>
+    </head>
+    <body>
+        <table>
+            <h3>Small Fancy Table</h3>
+            <tr> <!-- Row #1 -->
+                <th>Time</th>
+                <th>Activity</th>
+                <th>Frequency(Ideal)</th>
+                <th>Frequency(Actual)</th>
+            </tr>
+            <tr><!-- Row#2, -->
+                <th scope = "row"> 5 - 6am</th>
+                <td> Data Structures Reading and Writing in Notion</td>
+                <td>7 days a week</td>
+                <td>1x this week</td>
+            </tr>
+            <tr><!-- Row#3, -->
+                <th scope = "row"> 6 - 7am</th>
+                <td> Strength Training </td> <!-- Just remember that rowspan and colspan exist to merge cells-->
+                <td>5 days a week</td>
+                <td>1x this week</td>
+            </tr>
+            <tr><!-- Row#4, -->
+                <th scope = "row"> 7 - 8am</th>
+                <td>Run</td>
+                <td>6 days a week</td>
+                <td>1x this week</td>
+            </tr>
+            <tr><!-- Row#5, -->
+                <th scope = "row"> 8 - 9am</th>
+                <td> Breakfast/Get Dressed</td>
+                <td>7 days a week</td>
+                <td>1x this week</td>
+            </tr>
+        </table>
+        <br/>
+        <table>
+            <h3>Reading List</h3>
+            <thead><!-- Header -->
+                <tr>
+                    <th>Date</th>
+                    <th>Book</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>June 5th, 2023</th>
+                    <td>HTML&CSS</td>
+                    <td>Learn Web Development for Technical Writing Blog</td>
+                </tr>
+                <tr>
+                    <th>June 5th, 2023</th>
+                    <td> <a href="https://www.amazon.com/Purpose-Driven-Life-What-Earth/dp/031033750X/ref=sr_1_1?crid=1U9IB6LQSYGFS&keywords=a+purpose+driven+life+by+rick+warren&qid=1685991227&sprefix=a+purpose%2Caps%2C146&sr=8-1">A Purpose Driven Life</a></td>
+                    <td>Build Relationship With God</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td colspan="3"><b>I will allow Books to be my mentors!</b></td>
+            
+                </tr>
+            </tfoot>
+        </table>
+        <hr/> 
+        <form action = "http://www.example.com/review.php" method="get">
+            <fieldset>
+                <legend> Tell Us More</legend>
+                <label>Name: <input type="text" name="name" size="30" maxlength="50"></label>
+            <br/>
+            <label>Email: <input type="email" name="email" size="30" maxlength="50"></label>
+            </fieldset>
+            <br/>
+            <fieldset>
+                <legend>Engage With Out Work!</legend>
+                <p>Would you visit us again?
+                <label><input type="radio" name="rating" value="Of Course!"/>Of Course!</label>
+                <label><input type="radio" name="rating" value="Nah."/>Nah.</label>
+                <label><input type="radio" name="rating" value="I'll Think About It"/>I'll Think About It</label>
+                </p>
+                <p>
+                    <label for="comments">Comments?</label>
+                    <br/>
+                    <textarea rows="4" cols="50" id="comments"></textarea>
+                </p>
+            </fieldset>
+        </form>
+        <p><a href="FirstWebpage.html">A Link back to the Homepage</a></p>
+    
+
+        
+
+
+    </body>
+</html>
