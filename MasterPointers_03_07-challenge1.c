@@ -76,14 +76,99 @@ void output(struct family *a){
     
 
 }
-void remove_last_struct(struct family *a){
-    /*find a way to delete by ID number, right now just doing the last one*/
-    struct family *temp;
-    temp = a->next;
-    a->next = temp->next;
-    free(temp);
+void save_records(struct family *a){
+    char filename[SIZE];
+    FILE *fp;
+    int count = 0;
 
+    printf("Enter desired filename to save:");
+    strcpy(filename, input());
+    fp = fopen(filename, "w");
+
+    if (fp == NULL){
+        fprintf(stderr, "Unable to create file\n");
+        exit(1);
+    }
+
+    while(a != NULL){
+        fwrite(a, sizeof(struct family), 1, fp);
+        a = a->next;
+        count++;
+    }
+    fclose(fp);
+    printf("Saved. Total Number of Records Saved:%d\n", count);
 }
+
+void read_records(){
+    char filename[SIZE];
+    FILE *fp;
+    char count_str[SIZE];
+    int count;
+    int i;
+    struct family *first, *current, *next;
+
+    printf("Please enter desired filename to read:");
+    strcpy(filename, input());
+    printf("Please enter the total number of records saved:");
+    strcpy(count_str,input());
+    count = atoi(count_str);
+
+    fp = fopen(filename, "r");
+    if (fp == NULL){
+        fprintf(stderr, "Unable to open file\n");
+        exit(1);
+    }
+    
+
+    for(i=0; i<count; i++){
+        if(i == 0){
+            first = allocate();
+            fread(first, sizeof(struct family), 1, fp);
+            current = first;
+        }
+        else{
+            current->next = allocate();
+            current = current->next;
+            fread(current, sizeof(struct family), 1, fp);
+        }
+    }
+
+    current->next = NULL;
+    fclose(fp);
+
+    printf("number of records read: %d\n", count);
+    output(first);
+}
+void remove_record(struct family *a){
+    /*Consider adding a way to delete the first record, and a way to delete records not in sequential order*/
+    int i;
+
+    printf("Type ID Number for Deleted Record:");
+    i = atoi(input());
+
+    struct family *temp;
+    while (a != NULL){
+
+        /*stopping 1 record before the record we want to delete*/
+        if (a->id == (i-1)){
+            printf("ID:%d, Name:%s, nextaddress:%p", a->id, a->name, a->next);
+             /*storing the record we want to delete in temp*/
+            temp = a->next;
+
+            /*assigning this record to the record that comes after the record we want to delete*/
+            a->next = temp->next; 
+
+            /*free the storage for the "deleted record"*/
+            free(temp);
+
+            break;
+        }
+        else{
+            a = a->next;
+        }
+    }
+}
+
 int main()
 {
 	struct family *first,*current;
@@ -141,7 +226,7 @@ int main()
                     /*Allocate space for the next record*/
                     current->next = allocate();
 
-                    /*Using the newly allocated space*/
+                    /*Using the newly allocated space, moving current pointer to the next record*/
                     current = current->next;
                     
                     /*cap the final structure...for now*/
@@ -156,7 +241,7 @@ int main()
 			/* delete a record */
 			case 'D':
 			case 'd':
-                remove_last_struct(first);
+                remove_record(first);
 				break;
 			/* list all records */
 			case 'L':
@@ -166,10 +251,12 @@ int main()
 			/* open/retrieve existing records */
 			case 'O':
 			case 'o':
+                read_records();
 				break;
 			/* save all records */
 			case 'S':
 			case 's':
+                save_records(first);
 				break;
 			/* quit the program */
 			case 'Q':
